@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title> Pomodoro Clock </title>
+        
+        <!-- CSS FRAMEWORKS REQUIRED -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+
+        
+        <style>
+            #settings-header {
+                font-weight: 600;
+                background-color: blue;
+                color: aliceblue;
+                padding: 5px;
+                border-radius: 5px;
+            }
+            #settings-body {
+                background-color: rgba(36, 222, 243, 0.2);
+                padding: 5px;
+                font-size: 14px;
+            }
+            
+            #results-header {
+                font-weight: 600;
+                background-color: darkred;
+                color: aliceblue;
+                padding: 5px;
+                border-radius: 5px;
+            }
+            #results-body {
+                background-color: rgba(244, 133, 35, 0.5);
+                padding: 5px;
+                font-size: 14px;
+            }
+            
+            #clock-header {
+                background-color: #d4d0cd;
+                color: black;
+                padding: 5px;
+                border-radius: 5px;
+            }
+            #clock-body {
+                background-color: rgba( 238, 238, 230, 0.705 );
+                padding: 5px;
+                font-size: 22px;
+            }
+            #clock-type {
+                font-size: 14px;
+                font-style: italic;
+            }
+            
+            .magnitude {
+                background-color: rgba(255,255,255,0);
+            }
+        </style>
+
+    </head>
+    
+    <body>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <!-- RESULTS BAR -->
+                    <div id="results-header"><h5>Results</h5></div>
+                    <div id="results-body">
+                        Number of Pomodoro's performed: <br>
+                        <span id="pod-num">0</span>
+                    </div>
+                    <br>
+                </div>
+                
+                <div class="col-md-6">
+                    <!-- CLOCK AREA -->
+                    <div id="clock-header"> <h4> Pomodoro Clock</h4>
+                    </div>
+                    <div id="clock-body">
+                        <div id="clock-type">You are viewing the Session Clock.</div>
+                        <div class="text-center">
+                            <span id="minutes">25 :</span>
+                            <span id="seconds">00 :</span>
+                            <span id="miliseconds">00</span>
+                        </div>
+                        
+                        <div class="text-center">
+                            <!-- CONTROL BUTTONS -->
+                            <button class="btn magnitude" title="Play"><i class="fa fa-play-circle"></i></button>
+                            <button class="btn magnitude" title="Pause"><i class="fa fa-pause-circle"></i></button>
+                            <button class="btn magnitude" title="Restart"><i class="fa fa-sync"></i></button>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                
+                <div class="col-md-3">
+                    <!-- SETTINGS BAR -->
+                    <div id="settings-header"> <h5>Settings</h5></div>
+                    <div id="settings-body">
+                        Session duration (minutes): <br>
+                        <button class="btn magnitude" id="ses-dur-inc"> <i class="fa fa-chevron-circle-up"></i> </button>
+                        <span id="ses-dur">25</span>
+                        <button class="btn magnitude" id="ses-dur-dec"><i class="fa fa-chevron-circle-down"></i></button>
+
+                        <br> <br>
+
+                        Break duration (minutes): <br>
+                        <button class="btn magnitude" id="br-dur-inc"> <i class="fa fa-chevron-circle-up"></i> </button>
+                        <span id="br-dur">5</span>
+                        <button class="btn magnitude" id="br-dur-dec"><i class="fa fa-chevron-circle-down"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+        
+        
+        <!-- JS LIBRARIES REQUIRED -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+        
+        <script type="text/javascript">
+            // session controls
+            var sd = $("#ses-dur");
+            var min = $("#minutes");
+            
+            var sdi = $("#ses-dur-inc");
+            sdi.click(function() {
+                var sdt = parseInt(sd.text());
+                sd.text(sdt + 1);
+                min.text((sdt + 1) + " :");
+            });
+            
+            var sdc = $("#ses-dur-dec")
+            sdc.click(function() {
+                var sdt = parseInt(sd.text());
+                if (sdt > 1) {
+                    sd.text(sdt - 1);
+                    min.text((sdt - 1) + " :");
+                }
+                else alert("Durations cannot go below 1 minute");
+            });
+            
+            
+            // break controls
+            var br = $("#br-dur");
+            
+            var bri = $("#br-dur-inc");
+            bri.click(function() {
+                var brt = parseInt(br.text());
+                br.text(brt + 1);
+            });
+            
+            var brc = $("#br-dur-dec")
+            brc.click(function() {
+                var brt = parseInt(br.text());
+                if (brt > 1) {
+                    br.text(brt - 1);
+                }
+                else alert("Durations cannot go below 1 minute");
+            });
+        </script>
+        
+    </body>
+    
+</html>
