@@ -77,9 +77,33 @@
                 border-top-right-radius: 5px;
             }
             #how-body {
-                background-color: rgba( 140, 230, 49, 0.705 );
+                background-color: rgba( 140, 230, 49, 0.805 );
                 padding: 5px;
                 font-family: "Play";
+                font-size: 17px;
+            }
+            #how-body a{
+                color: aliceblue;
+            }
+            
+            #footer {
+                background-color: rgba( 191, 202, 206, 0.861 );
+                font-family: "Play";
+            }
+            #github {
+                color: green;
+            }
+            #facebook {
+                color: blue;
+            }
+            #linkedin {
+                color: red;
+            }
+            .contact {
+                font-size: 1.3em;
+            }
+            .contact:hover {
+                font-size: 1.6em;
             }
             
             .magnitude {
@@ -101,6 +125,7 @@
     <body>
         
         <div class="container">
+            <br>
             <div class="row">
                 <div class="col-md-3">
                     <!-- RESULTS BAR -->
@@ -160,6 +185,7 @@
             <br>
             
             <div class="row">
+                <!-- EXPLANATIONS PANEL -->
                 <div class="col">
                     <div id="how-head"> <h4><i class="fa fa-tasks"></i> So how does this work?</h4></div>
                     
@@ -170,14 +196,35 @@
                         
                         <i class="fa fa-check">&emsp;</i> You work for as long as the Session runs. <br>
                         
-                        <i class="fa fa-check">&emsp;</i> Once the session is over, you take a break and rejuvinate yourself for as long as the Break runs. <br>
+                        <i class="fa fa-check">&emsp;</i> Once the session is over, you take a break and rejuvenate yourself for as long as the Break runs. <br>
                         
                         <i class="fa fa-check">&emsp;</i> After one Session and one Break periods successfully get over, you gain <strong>one Pomodoro</strong>. <br>
                         
                         <i class="fa fa-check">&emsp;</i> Try getting as many Pomodoro as you can to maximize efficiency. <br>
+                        
+                        <i class="fa fa-check">&emsp;</i> You can read more about Pomodoro Clocks <a href="https://en.wikipedia.org/wiki/Pomodoro_Technique" target="_blank">here</a>. <br>
+                        
+                        <i class="fa fa-check">&emsp;</i> This website was made as one of the Legacy projects on <a href="https://freecodecamp.org/" target="_blank">FreeCodeCamp's</a> Front-End Cerification. <br>
                     </div>
                 </div>
             </div>
+            
+            <br>
+            
+            <div class="text-center" id="footer">
+                <!-- FOOTER AREA -->
+                Site made with <i class="fa fa-heart"></i> by <a href="https://github.com/rafi007akhtar" target="_blank">Md Rafi Akhtar </a> <br>
+                
+                <i class="fab fa-github contact" id="github"></i> &emsp;
+                <i class="fab fa-facebook contact" id="facebook"></i> &emsp;
+                <i class="fab fa-linkedin contact" id="linkedin"></i>
+
+                <br>
+                
+                Contribute to this project on <a href="https://github.com/rafi007akhtar/Pomodoro-Clock" target="_blank">GitHub</a>
+            </div>
+            
+            <br>
             
         </div>
         
