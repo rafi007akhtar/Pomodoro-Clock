@@ -176,13 +176,11 @@
             
             
             // timer controls -- PLAY
-            var inc, incM, incS;
             var playButton = $("#play-button");
             var min_int, sec_int;
             
             function lessen(min_int, sec_int) {
                 if (parseInt($("#minutes").text()) == 0 && parseInt($("#seconds").text()) == 0) {
-//                    sec.text("00");
                     pause();
                     podNum.text(parseInt(podNum.text()) + 1);
                 }
@@ -191,12 +189,12 @@
                     if (sec_int == 0) {
                         sec_int = 59;
                         sec.text("59");
+                        min_int = parseInt($("#minutes").text());
                         min_int = min_int - 1;
                         if (min_int < 10)
                             min.text("0" + min_int);
                         else
                             min.text(min_int);
-                        incS = 1;
                     }
                     else {
                         sec_int = sec_int - 1;
@@ -217,7 +215,6 @@
             playButton.click(function() {
                 min_int = parseInt($("#minutes").text());
                 sec_int = parseInt($("#seconds").text());
-                incS = incM = 0;
                 play(min_int, sec_int);
             });
             
