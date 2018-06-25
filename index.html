@@ -15,8 +15,13 @@
 
         
         <style>
-            @import url('https://fonts.googleapis.com/css?family=Exo|Play');
+            @import url('https://fonts.googleapis.com/css?family=Exo|Play|Ubuntu');
 
+            body {
+                background-image: url(time2.jpg);
+                background-size: cover;
+            }
+            
             #settings-header {
                 font-weight: 600;
                 background-color: blue;
@@ -26,9 +31,10 @@
                 border-top-right-radius: 5px;
             }
             #settings-body {
-                background-color: rgba(36, 222, 243, 0.2);
+                background-color: rgba(36, 222, 243, 0.7);
                 padding: 5px;
-                font-size: 14px;
+                font-size: 16px;
+                font-family: 'Play';
             }
             
             #results-header {
@@ -40,9 +46,10 @@
                 border-top-right-radius: 5px;
             }
             #results-body {
-                background-color: rgba(244, 133, 35, 0.5);
+                background-color: rgba(244, 133, 35, 0.9);
                 padding: 5px;
-                font-size: 14px;
+                font-size: 16px;
+                font-family: 'Play';
             }
             
             #clock-header {
@@ -53,18 +60,40 @@
                 border-top-right-radius: 5px;
             }
             #clock-body {
-                background-color: rgba( 238, 238, 230, 0.705 );
+                background-color: rgba( 238, 238, 230, 0.805 );
                 padding: 5px;
-                font-size: 22px;
+                font-size: 28px;
             }
             #clock-type {
-                font-size: 14px;
+                font-size: 20px;
                 font-style: italic;
+            }
+            
+            #how-head {
+                background-color: #698513;
+                color: #fdfbfb;
+                padding: 5px;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+            #how-body {
+                background-color: rgba( 140, 230, 49, 0.705 );
+                padding: 5px;
+                font-family: "Play";
             }
             
             .magnitude {
                 background-color: rgba(255,255,255,0);
             }
+            
+            .number {
+                font-family: "Exo";
+            }            
+
+            .btn:hover {
+                font-size: 1.5em;
+            }
+            
         </style>
 
     </head>
@@ -78,7 +107,9 @@
                     <div id="results-header"><h5> <i class="fa fa-sort-numeric-up"></i> Results</h5></div>
                     <div id="results-body">
                         Number of Pomodoro's performed: <br>
-                        <span id="pod-num">0</span>
+                        <strong><span id="pod-num" class="number">0</span></strong>
+                        <br> <br>
+                        (More details on this below.)
                     </div>
                     <br>
                 </div>
@@ -88,10 +119,13 @@
                     <div id="clock-header"> <h4> <i class="fa fa-clock"></i> Pomodoro Clock</h4>
                     </div>
                     <div id="clock-body">
-                        <div id="clock-type">You are viewing the Session Clock.</div>
+                        <div id="clock-type">
+                            You are viewing the Session Clock.
+                        </div>
+
                         <div class="text-center">
-                            <span id="minutes">25</span> :
-                            <span id="seconds">00</span>
+                            <span id="minutes" class="number">25</span> :
+                            <span id="seconds" class="number">00</span>
                         </div>
                         
                         <div class="text-center">
@@ -110,19 +144,40 @@
                     <div id="settings-body">
                         Session duration (minutes): <br>
                         <button class="btn magnitude" id="ses-dur-inc"> <i class="fa fa-chevron-circle-up"></i> </button>
-                        <span id="ses-dur">25</span>
+                        <span id="ses-dur" class="number">25</span>
                         <button class="btn magnitude" id="ses-dur-dec"><i class="fa fa-chevron-circle-down"></i></button>
 
-                        <br> <br>
+                        <br> 
 
                         Break duration (minutes): <br>
                         <button class="btn magnitude" id="br-dur-inc"> <i class="fa fa-chevron-circle-up"></i> </button>
-                        <span id="br-dur">5</span>
+                        <span id="br-dur" class="number">5</span>
                         <button class="btn magnitude" id="br-dur-dec"><i class="fa fa-chevron-circle-down"></i></button>
                     </div>
                 </div>
             </div>
             
+            <br>
+            
+            <div class="row">
+                <div class="col">
+                    <div id="how-head"> <h4><i class="fa fa-tasks"></i> So how does this work?</h4></div>
+                    
+                    <div id="how-body">
+                        <i class="fa fa-check">&emsp;</i> The <strong>Pomodoro Clock</strong> is used to increase efficiency while working. <br>
+                        
+                        <i class="fa fa-check">&emsp;</i> You start by setting up a <strong>Session</strong> period and a <strong>Break</strong> (which by default are 25 minutes and 5 minutes long respectively). <br>
+                        
+                        <i class="fa fa-check">&emsp;</i> You work for as long as the Session runs. <br>
+                        
+                        <i class="fa fa-check">&emsp;</i> Once the session is over, you take a break and rejuvinate yourself for as long as the Break runs. <br>
+                        
+                        <i class="fa fa-check">&emsp;</i> After one Session and one Break periods successfully get over, you gain <strong>one Pomodoro</strong>. <br>
+                        
+                        <i class="fa fa-check">&emsp;</i> Try getting as many Pomodoro as you can to maximize efficiency. <br>
+                    </div>
+                </div>
+            </div>
             
         </div>
         
