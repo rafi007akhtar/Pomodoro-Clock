@@ -85,15 +85,15 @@
                     <div id="clock-body">
                         <div id="clock-type">You are viewing the Session Clock.</div>
                         <div class="text-center">
-                            <span id="minutes">25 :</span>
-                            <span id="seconds">00 :</span>
+                            <span id="minutes">25</span> :
+                            <span id="seconds">00</span> :
                             <span id="miliseconds">00</span>
                         </div>
                         
                         <div class="text-center">
                             <!-- CONTROL BUTTONS -->
-                            <button class="btn magnitude" title="Play"><i class="fa fa-play-circle"></i></button>
-                            <button class="btn magnitude" title="Pause"><i class="fa fa-pause-circle"></i></button>
+                            <button class="btn magnitude" title="Play" id="play-button"><i class="fa fa-play-circle"></i></button>
+                            <button class="btn magnitude" title="Pause" id="pause-button"><i class="fa fa-pause-circle"></i></button>
                             <button class="btn magnitude" title="Restart"><i class="fa fa-sync"></i></button>
                         </div>
                     </div>
@@ -137,7 +137,7 @@
             sdi.click(function() {
                 var sdt = parseInt(sd.text());
                 sd.text(sdt + 1);
-                min.text((sdt + 1) + " :");
+                min.text(sdt + 1);
             });
             
             var sdc = $("#ses-dur-dec")
@@ -145,7 +145,7 @@
                 var sdt = parseInt(sd.text());
                 if (sdt > 1) {
                     sd.text(sdt - 1);
-                    min.text((sdt - 1) + " :");
+                    min.text(sdt - 1);
                 }
                 else alert("Durations cannot go below 1 minute");
             });
@@ -168,6 +168,36 @@
                 }
                 else alert("Durations cannot go below 1 minute");
             });
+            
+            
+            // timer controls -- PLAY
+            var inc = 0;
+            var playButton = $("#play-button");
+            function lessen(min_int) {
+                console.log(min_int)
+                inc = inc + 1;                
+                if (inc == min_int) pause();
+                min.text(min_int - inc);
+            }
+            
+            var timer; // NOTE: This line is important; make timer global, or else it won't stop
+            function play(min_int) {                
+                timer = setInterval(lessen, 1000, min_int);
+            }
+            
+            playButton.click(function() {
+                var min_int = parseInt(min.text());
+                play(min_int)
+            });
+            
+            // timer controls -- PAUSE
+            var pauseButton = $("#pause-button");
+            
+            pauseButton.click(pause);
+            
+            function pause() {
+                clearInterval(timer);
+            }
         </script>
         
     </body>
