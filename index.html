@@ -20,7 +20,8 @@
                 background-color: blue;
                 color: aliceblue;
                 padding: 5px;
-                border-radius: 5px;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
             }
             #settings-body {
                 background-color: rgba(36, 222, 243, 0.2);
@@ -33,7 +34,8 @@
                 background-color: darkred;
                 color: aliceblue;
                 padding: 5px;
-                border-radius: 5px;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
             }
             #results-body {
                 background-color: rgba(244, 133, 35, 0.5);
@@ -45,7 +47,8 @@
                 background-color: #d4d0cd;
                 color: black;
                 padding: 5px;
-                border-radius: 5px;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
             }
             #clock-body {
                 background-color: rgba( 238, 238, 230, 0.705 );
@@ -86,15 +89,14 @@
                         <div id="clock-type">You are viewing the Session Clock.</div>
                         <div class="text-center">
                             <span id="minutes">25</span> :
-                            <span id="seconds">00</span> :
-                            <span id="miliseconds">00</span>
+                            <span id="seconds">00</span>
                         </div>
                         
                         <div class="text-center">
                             <!-- CONTROL BUTTONS -->
                             <button class="btn magnitude" title="Play" id="play-button"><i class="fa fa-play-circle"></i></button>
                             <button class="btn magnitude" title="Pause" id="pause-button"><i class="fa fa-pause-circle"></i></button>
-                            <button class="btn magnitude" title="Restart"><i class="fa fa-sync"></i></button>
+                            <button class="btn magnitude" title="Reset" id="reset"><i class="fa fa-sync"></i></button>
                         </div>
                     </div>
                     <br>
@@ -129,9 +131,12 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
         
         <script type="text/javascript">
+            var podNum = $("#pod-num"); // number of Pomodoro's
+            
             // session controls
             var sd = $("#ses-dur");
             var min = $("#minutes");
+            var sec = $("#seconds");
             
             var sdi = $("#ses-dur-inc");
             sdi.click(function() {
@@ -171,7 +176,7 @@
             
             
             // timer controls -- PLAY
-            var inc = 0;
+            var inc;
             var playButton = $("#play-button");
             function lessen(min_int) {
                 console.log(min_int)
@@ -185,8 +190,10 @@
                 timer = setInterval(lessen, 1000, min_int);
             }
             
+            var min_int;
             playButton.click(function() {
-                var min_int = parseInt(min.text());
+                min_int = parseInt($("#minutes").text());
+                inc = 0;
                 play(min_int)
             });
             
@@ -198,6 +205,19 @@
             function pause() {
                 clearInterval(timer);
             }
+            
+            // timer controls -- RESTART
+            sd = $("#ses-dur");
+            
+            $("#reset").click(function() {
+                pause();
+                min.text(sd.text());
+                sec.text("00");
+                min_int = parseInt($("#minutes").text());
+                inc = 0;
+                play(min_int)
+            });
+            
         </script>
         
     </body>
