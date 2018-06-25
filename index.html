@@ -15,6 +15,8 @@
 
         
         <style>
+            @import url('https://fonts.googleapis.com/css?family=Exo|Play');
+
             #settings-header {
                 font-weight: 600;
                 background-color: blue;
@@ -73,7 +75,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <!-- RESULTS BAR -->
-                    <div id="results-header"><h5>Results</h5></div>
+                    <div id="results-header"><h5> <i class="fa fa-sort-numeric-up"></i> Results</h5></div>
                     <div id="results-body">
                         Number of Pomodoro's performed: <br>
                         <span id="pod-num">0</span>
@@ -83,7 +85,7 @@
                 
                 <div class="col-md-6">
                     <!-- CLOCK AREA -->
-                    <div id="clock-header"> <h4> Pomodoro Clock</h4>
+                    <div id="clock-header"> <h4> <i class="fa fa-clock"></i> Pomodoro Clock</h4>
                     </div>
                     <div id="clock-body">
                         <div id="clock-type">You are viewing the Session Clock.</div>
@@ -104,7 +106,7 @@
                 
                 <div class="col-md-3">
                     <!-- SETTINGS BAR -->
-                    <div id="settings-header"> <h5>Settings</h5></div>
+                    <div id="settings-header"> <h5><i class="fa fa-cogs"></i> Settings</h5></div>
                     <div id="settings-body">
                         Session duration (minutes): <br>
                         <button class="btn magnitude" id="ses-dur-inc"> <i class="fa fa-chevron-circle-up"></i> </button>
@@ -132,6 +134,7 @@
         
         <script type="text/javascript">
             var podNum = $("#pod-num"); // number of Pomodoro's
+            var clock = "session"; // can also be "break"
             
             // session controls
             var sd = $("#ses-dur");
@@ -182,7 +185,23 @@
             function lessen(min_int, sec_int) {
                 if (parseInt($("#minutes").text()) == 0 && parseInt($("#seconds").text()) == 0) {
                     pause();
-                    podNum.text(parseInt(podNum.text()) + 1);
+                    
+                    if (clock == "session") {
+                        clock = "break";
+                        br = $("#br-dur");
+                        min.text(br.text());
+                        sec.text("00");
+                        $("#clock-type").text("You are viewing Break Clock.");
+                        min_int = parseInt($("#minutes").text());
+                        sec_int = parseInt($("#seconds").text());
+                        play(min_int, sec_int);
+                    }
+                    else if (clock == "break") {
+                        podNum.text(parseInt(podNum.text()) + 1);
+                        clock = "session";
+                        $("#clock-type").text("You are viewing Session Clock.");
+                        alert("Congrats, you just made a Pomodoro!");
+                    }
                 }
                 else {
                     sec_int = parseInt($("#seconds").text());
@@ -228,7 +247,7 @@
                 clearInterval(timer);
             }
             
-            // timer controls -- RESTART
+            // timer controls -- RESET
             sd = $("#ses-dur");
             
             $("#reset").click(function() {
