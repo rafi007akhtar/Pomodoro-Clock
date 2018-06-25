@@ -176,26 +176,51 @@
             
             
             // timer controls -- PLAY
-            var inc;
+            var inc, incM, incS;
             var playButton = $("#play-button");
-            function lessen(min_int) {
-                console.log(min_int)
-                inc = inc + 1;                
-                if (inc == min_int) pause();
-                min.text(min_int - inc);
+            var min_int, sec_int;
+            
+            function lessen(min_int, sec_int) {
+                if (parseInt($("#minutes").text()) == 0 && parseInt($("#seconds").text()) == 0) {
+//                    sec.text("00");
+                    pause();
+                    podNum.text(parseInt(podNum.text()) + 1);
+                }
+                else {
+                    sec_int = parseInt($("#seconds").text());
+                    if (sec_int == 0) {
+                        sec_int = 59;
+                        sec.text("59");
+                        min_int = min_int - 1;
+                        if (min_int < 10)
+                            min.text("0" + min_int);
+                        else
+                            min.text(min_int);
+                        incS = 1;
+                    }
+                    else {
+                        sec_int = sec_int - 1;
+                        if (sec_int < 10)
+                            sec.text("0" + sec_int);
+                        else sec.text(sec_int);
+                    }
+                                        
+                }
+                
             }
             
             var timer; // NOTE: This line is important; make timer global, or else it won't stop
-            function play(min_int) {                
-                timer = setInterval(lessen, 1000, min_int);
+            function play(min_int, sec_int) {                
+                timer = setInterval(lessen, 1000, min_int, sec_int);
             }
             
-            var min_int;
             playButton.click(function() {
                 min_int = parseInt($("#minutes").text());
-                inc = 0;
-                play(min_int)
+                sec_int = parseInt($("#seconds").text());
+                incS = incM = 0;
+                play(min_int, sec_int);
             });
+            
             
             // timer controls -- PAUSE
             var pauseButton = $("#pause-button");
@@ -214,7 +239,6 @@
                 min.text(sd.text());
                 sec.text("00");
                 min_int = parseInt($("#minutes").text());
-                inc = 0;
                 play(min_int)
             });
             
